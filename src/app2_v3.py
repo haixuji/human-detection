@@ -84,11 +84,10 @@ print('data is not null')
 def test():
     if not request.files.get('test'):
         return 'input data error'
-    print('data is not null')
-    print(data)
-    data = request.files.get('test')
+
+    data = json.loads(request.data)
 #     response = {'response': 'gcp is working'}
-    return jsonify(data=data['test'])
+    return data
 
 # return render image
 
