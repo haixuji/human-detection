@@ -82,6 +82,8 @@ def action_predictor():
 def test():
     if not request.files.get('test'):
         return 'input data error'
+    print('data is not null')
+    print(data)
     data = request.files.get('test')
 #     response = {'response': 'gcp is working'}
     return jsonify(data)
