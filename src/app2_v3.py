@@ -44,43 +44,43 @@ def action_predictor():
     
     frames = request.json
     
-    return frames
+    return jsonify({'return': frames})
     
-    bgr_frame = frames['frame']
+#     bgr_frame = frames['frame']
     
-    bgr_frame = bgr_frame.read()
+#     bgr_frame = bgr_frame.read()
     
-    rgb_frame = cv2.cvtColor(np.array(bgr_frame), cv2.COLOR_BGR2RGB)
+#     rgb_frame = cv2.cvtColor(np.array(bgr_frame), cv2.COLOR_BGR2RGB)
     
-    # predict pose estimation
-    predictions = pose_estimator.predict(rgb_frame, get_bbox=True) # return predictions which include keypoints in trtpose order, bboxes (x,y,w,h)
-    # if no keypoints, update tracker's memory and it's age
-    if len(predictions) == 0 and args_task != 'pose':
-        debug_img = bgr_frame
-        tracker.increment_ages()
-    else:
-        # draw keypoints only if task is 'pose'
-        if args_task != 'pose':
-            # Tracking
-            # start_track = time.time()
-            predictions = utils.convert_to_openpose_skeletons(predictions)
-            # predictions, debug_img = tracker.predict(rgb_frame, predictions,
-            #                                                 debug=args_debug_track)
-            # end_track = time.time() - start_track
+#     # predict pose estimation
+#     predictions = pose_estimator.predict(rgb_frame, get_bbox=True) # return predictions which include keypoints in trtpose order, bboxes (x,y,w,h)
+#     # if no keypoints, update tracker's memory and it's age
+#     if len(predictions) == 0 and args_task != 'pose':
+#         debug_img = bgr_frame
+#         tracker.increment_ages()
+#     else:
+#         # draw keypoints only if task is 'pose'
+#         if args_task != 'pose':
+#             # Tracking
+#             # start_track = time.time()
+#             predictions = utils.convert_to_openpose_skeletons(predictions)
+#             # predictions, debug_img = tracker.predict(rgb_frame, predictions,
+#             #                                                 debug=args_debug_track)
+#             # end_track = time.time() - start_track
 
-            # Action Recognition
-            if len(predictions) > 0 and args_task == 'action':
-                predictions = action_classifier.classify(predictions)
-                # get action label
-                for pred in predictions:
-                    if pred.action[0]:
-                        action_label = pred.action[0]
-                        response['prediction'].append(action_label)
+#             # Action Recognition
+#             if len(predictions) > 0 and args_task == 'action':
+#                 predictions = action_classifier.classify(predictions)
+#                 # get action label
+#                 for pred in predictions:
+#                     if pred.action[0]:
+#                         action_label = pred.action[0]
+#                         response['prediction'].append(action_label)
     
-    try:
-        return jsonify({"response": response}), 200
-    except:
-        abort(404)
+#     try:
+#         return jsonify({"response": response}), 200
+#     except:
+#         abort(404)
         
 print('data is not null')
        
@@ -91,7 +91,6 @@ def test():
     return jsonify({'return': content['test']})
 
 # return render image
-
 @app.route('/image', methods=['POST'])
 
 def render_image():
