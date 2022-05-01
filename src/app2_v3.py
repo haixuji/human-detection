@@ -44,6 +44,8 @@ def action_predictor():
     
     frames = request.json
     
+    return frames
+    
     bgr_frame = frames['frame']
     
     bgr_frame = bgr_frame.read()
