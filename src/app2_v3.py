@@ -82,12 +82,8 @@ print('data is not null')
 # test api
 @app.route('/test', methods=['POST'])
 def test():
-    if not request.files.get('test'):
-        return 'input data error'
-
-    in_data = request.files.get('test')
-#     response = {'response': 'gcp is working'}
-    return jsonify(res=in_data)
+    content = request.json
+    return jsonify({'return': content['test']})
 
 # return render image
 
