@@ -85,9 +85,9 @@ def test():
     if not request.files.get('test'):
         return 'input data error'
 
-    data = json.loads(request.data)
+    in_data = request.json
 #     response = {'response': 'gcp is working'}
-    return data
+    return in_data
 
 # return render image
 
