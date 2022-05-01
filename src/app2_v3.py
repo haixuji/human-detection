@@ -80,8 +80,11 @@ def action_predictor():
 # test api
 @app.route('/test', methods=['POST'])
 def test():
-    response = {'response': 'gcp is working'}
-    return response
+    if not request.files.get('test'):
+        return 'input data error'
+    data = request.files.get('test')
+#     response = {'response': 'gcp is working'}
+    return jsonify(data)
 
 # return render image
 
