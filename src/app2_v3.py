@@ -77,6 +77,8 @@ def action_predictor():
     except:
         abort(404)
         
+print('data is not null')
+       
 # test api
 @app.route('/test', methods=['POST'])
 def test():
@@ -86,7 +88,7 @@ def test():
     print(data)
     data = request.files.get('test')
 #     response = {'response': 'gcp is working'}
-    return jsonify(data)
+    return jsonify(data=data['test'])
 
 # return render image
 
