@@ -76,6 +76,12 @@ def action_predictor():
         return jsonify({"response": response}), 200
     except:
         abort(404)
+        
+# test api
+@app.route('/test', methods=['POST'])
+def test():
+    response = {'response': 'gcp is working'}
+    return response
 
 # return render image
 
