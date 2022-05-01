@@ -41,12 +41,15 @@ app = Flask(__name__)
 
 def action_predictor():
     response = {'predictions': []}
-    if 'frame' not in request.files:
-        return "no input frame"
-    bgr_frame = request.files.get('frame')
+    
+    frames = request.json
+    
+    bgr_frame = frames['frame']
+    
     bgr_frame = bgr_frame.read()
-    print(bgr_frame)
+    
     rgb_frame = cv2.cvtColor(np.array(bgr_frame), cv2.COLOR_BGR2RGB)
+    
     # predict pose estimation
     predictions = pose_estimator.predict(rgb_frame, get_bbox=True) # return predictions which include keypoints in trtpose order, bboxes (x,y,w,h)
     # if no keypoints, update tracker's memory and it's age
