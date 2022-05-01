@@ -2,6 +2,7 @@ from crypt import methods
 from telnetlib import STATUS
 from urllib import response
 from flask import Flask, request, Response, jsonify, send_from_directory, abort
+import numpy as np
 
 import _init_paths
 import time
@@ -42,7 +43,7 @@ def action_predictor():
     response = {'predictions': []}
 
     bgr_frame = request.files.getlist("frame")
-    rgb_frame = cv2.cvtColor(bgr_frame, cv2.COLOR_BGR2RGB)
+    rgb_frame = cv2.cvtColor(np.array(bgr_frame), cv2.COLOR_BGR2RGB)
     # predict pose estimation
     predictions = pose_estimator.predict(rgb_frame, get_bbox=True) # return predictions which include keypoints in trtpose order, bboxes (x,y,w,h)
     # if no keypoints, update tracker's memory and it's age
